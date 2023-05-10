@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="../../template/Layout.xhtml">
+
+
+
+	<ui:define name="conteudo">
+		<p:panel id="pnlManterOcorrencia">
+			<p:fieldset legend="Dados da ocorrência">
+				<h:panelGrid columns="2" cellpadding="4">
+					<p:outputLabel for="@next" value="Data da ocorrência" />
+					<p:inputText id="extended" required="true" />
+
+					<p:outputLabel for="@next" value="Forma de recebimento" />
+					<p:selectOneMenu id="cbFormaRecebimento">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Option1" itemValue="Option1" />
+						<f:selectItem itemLabel="Option2" itemValue="Option2" />
+						<f:selectItem itemLabel="Option3" itemValue="Option3" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="@next" value="Local de atendimento" />
+					<p:inputText id="txtLocalAtendimento" required="true" />
+
+					<p:outputLabel for="@next" value="Data da ocorrência" />
+					<p:inputText id="extended" required="true" />
+
+					<p:outputLabel for="@next" value="Data da ocorrência" />
+					<p:inputText id="extended" required="true" />
+
+
+				</h:panelGrid>
+			</p:fieldset>
+
+
+
+
+
+			<p:fieldset
+				legend="#{messageBean['ocorrencia.subsecao.cidadao.label']}">
+				<p:panel id="fsCidadao">
+<!-- 					<h:selectBooleanCheckbox  -->
+<!-- 						title="Creu" disabled="#{formBean.desabilitaCampos}" -->
+<!-- 						valueChangeListener="#{formBean.changeModalidadeOcorrencia}"> -->
+<!-- 						<f:ajax event="change" execute="@this" render="fsCidadao" /> -->
+<!-- 					</h:selectBooleanCheckbox> -->
+
+					<h:outputText styleClass="campoFormulario"
+						value="#{messageBean['ocorrencia.checkbox.cidadaoAnonimo']}" />
+
+					<h:panelGrid columns="1">
+						<h:panelGroup>
+							<div style="float: left;">
+
+								<h:panelGrid columns="2">
+									<h:outputLabel for="txtNomeCidadao"
+										value="#{messageBean['ocorrencia.campo.nomeCidadao.label']}"/>
+									<p:inputText id="txtNomeCidadao" size="45" maxlength="60"
+										label="#{messageBean['ocorrencia.campo.nomeCidadao.label']}" />
+									<h:outputLabel for="txtNomeSocial"
+										value="#{messageBean['ocorrencia.campo.nomeSocial.label']}" />
+									<p:inputText id="txtNomeSocial" size="45" maxlength="60"
+										label="#{messageBean['ocorrencia.campo.nomeSocial.label']}" />
+									<h:outputLabel for="txtDataNascimentoCidadao"
+										value="#{messageBean['ocorrencia.campo.dataNascimentoCidadao.label']}"/>
+									<h:outputLabel for="txtDataNascimentoCidadao"
+										value="#{messageBean['ocorrencia.campo.dataNascimentoCidadao.label']}"/>
+<!-- 									<h:panelGroup> -->
+<!-- 										<p:calendar id="txtDataNascimentoCidadao" showOn="button" -->
+<!-- 											size="30" -->
+<!-- 											label="#{messageBean['ocorrencia.campo.dataNascimentoCidadao.label']}" -->
+<!-- 											pattern="dd/MM/yyyy" mask="true" locale="pt" -->
+<!-- 											disabled="#{formBean.dadosCidadaoObrigatorio}" -->
+<!-- 											value="#{formBean.ocorrencia.dataNascimentoCidadao}" -->
+<!-- 											onkeypress="return mascararData(event,document.getElementById('frmManterOcorrencia:txtDataNascimentoCidadaoInputDate'))" /> -->
+<!-- 									</h:panelGroup> -->
+<!-- 									<h:outputLabel for="txtNomeMaeCidadao" -->
+<!-- 										value="#{messageBean['ocorrencia.campo.nomeMaeCidadao.label']}"/> -->
+									<h:outputLabel for="txtNomeMaeCidadao"
+										value="#{messageBean['ocorrencia.campo.nomeMaeCidadao.label']}"/>
+									<p:inputText id="txtNomeMaeCidadao" size="45"
+										label="#{messageBean['ocorrencia.campo.nomeMaeCidadao.label']}" />
+								</h:panelGrid>
+							</div>
+
+							<div style="float: left; margin-left: 5em;">
+								<h:panelGrid columns="2">
+
+<!-- 									<h:outputLabel for="cbSexo" -->
+<!-- 										value="#{messageBean['ocorrencia.campo.sexo.label']}" -->
+<!-- 										styleClass="campoFormulario" /> -->
+<!-- 									<p:selectOneMenu id="cbSexo" -->
+<!-- 										value="#{formBean.ocorrencia.sexo}" -->
+<!-- 										label="#{messageBean['ocorrencia.campo.sexo.label']}" -->
+<!-- 										converter="#{enumConverter}" -->
+<!-- 										disabled="#{formBean.dadosCidadaoObrigatorio}" -->
+<!-- 										style="width: 12em;"> -->
+<!-- 										<f:selectItems value="#{formBean.listaSexo}" var="item" -->
+<!-- 											itemLabel="#{item.descricao}" /> -->
+<!-- 									</p:selectOneMenu> -->
+
+									<h:outputLabel for="txtTituloEleitorCidadao"
+										value="#{messageBean['ocorrencia.campo.tituloEleitorCidadao.label']}"
+										styleClass="campoFormulario" />
+									<p:inputText id="txtTituloEleitorCidadao"
+										value="#{formBean.ocorrencia.tituloEleitorCidadao}"
+										maxlength="12" disabled="#{formBean.dadosCidadaoObrigatorio}"
+										label="#{messageBean['ocorrencia.campo.tituloEleitorCidadao.label']}"
+										styleClass="tituloEleitor">
+									</p:inputText>
+
+									<h:outputLabel for="cbEscolaridade"
+										value="#{messageBean['ocorrencia.campo.escolaridade.label']}"
+										styleClass="campoFormulario" />
+									<p:selectOneMenu id="cbEscolaridade"
+										value="#{formBean.ocorrencia.escolaridade}"
+										label="#{messageBean['ocorrencia.campo.escolaridade.label']}"
+										converter="#{enumConverter}"
+										disabled="#{formBean.dadosCidadaoObrigatorio}"
+										style="width:20em;">
+										<f:selectItems value="#{formBean.listaEscolaridade}"
+											var="item" itemLabel="#{item.descricao}" />
+									</p:selectOneMenu>
+								</h:panelGrid>
+							</div>
+						</h:panelGroup>
+					</h:panelGrid>
+
+					<div class="clear">&nbsp;</div>
+
+				</p:panel>
+			</p:fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</p:panel>
+
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>

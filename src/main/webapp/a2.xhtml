@@ -1,11 +1,420 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
- 	xmlns:h="http://xmlns.jcp.org/jsf/html">
-<head>
-<meta charset="UTF-8"/>
-<title>Insert title here</title>
-</head>
-<body>
-<h:outputText value="Olá!" />
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	<ui:define name="conteudo">
+		<p:panel id="pnlManterOcorrencia"
+			header="#{titulo}  #{formBean.ocorrencia.id}"
+			headerClass="tituloSecao">
+			<h:panelGrid cellpadding="5">
+				<p:fieldset
+					legend="#{messageBean['ocorrencia.subsecao.ocorrencia.label']}">
+					<p:outputPanel id="fsOcorrencia">
+						<h:panelGrid columns="1">
+							<h:panelGroup>
+								<div style="float: left;">
+									<h:panelGrid columns="2">
+										<h:outputLabel for="txtDataOcorrencia"
+											value="#{messageBean['ocorrencia.campo.dataOcorrencia.label']}"
+											styleClass="campoFormulario alerta" />
+										<h:panelGroup>
+											<p:calendar id="txtDataOcorrencia" showOn="button" size="30"
+												pattern="dd/MM/yyyy" mask="true" locale="pt"
+												value="#{formBean.ocorrencia.dataOcorrencia}"
+												onkeypress="return mascararData(event,document.getElementById('frmManterOcorrencia:txtDataOcorrenciaInputDate'))" 
+												/>
+										</h:panelGroup>
+
+										<h:outputLabel for="cbFormaRecebimento"
+											value="#{messageBean['ocorrencia.campo.formaRecebimento.label']}"
+											styleClass="campoFormulario alerta" />
+										<p:selectOneMenu id="cbFormaRecebimento"
+											value="#{formBean.ocorrencia.formaRecebimento}"
+											label="#{messageBean['ocorrencia.campo.formaRecebimento.label']}"
+											converter="#{formaRecebimentoConverter}" style="width:20em;">
+											<f:selectItem
+												itemLabel="#{messageBean['comum.combo.naoSelecionado']}"
+												itemValue="-1" />
+											<f:selectItems value="#{formBean.listaFormaRecebimento}"
+												var="item" itemLabel="#{item.descricao}" />
+										</p:selectOneMenu>
+
+										<h:outputLabel for="txtLocalAtendimento"
+											value="#{messageBean['ocorrencia.campo.localAtendimento.label']}"
+											styleClass="campoFormulario alerta"
+											rendered="#{formBean.localAtendimentoObrigatorio}" />
+										<h:outputLabel for="txtLocalAtendimento"
+											value="#{messageBean['ocorrencia.campo.localAtendimento.label']}"
+											styleClass="campoFormulario"
+											rendered="#{not formBean.localAtendimentoObrigatorio}" />
+										<p:inputText id="txtLocalAtendimento" size="30"
+											value="#{formBean.ocorrencia.localAtendimento}"
+											maxlength="80"
+											label="#{messageBean['ocorrencia.campo.localAtendimento.label']}" 
+											style="width:280px!import"/>
+									</h:panelGrid>
+								</div>
+
+								<div style="float: left; margin-left: 5em;">
+
+									<h:panelGrid columns="2">
+
+										<h:outputLabel for="cbTipoOcorrencia"
+											value="#{messageBean['ocorrencia.campo.tipoOcorrencia.label']}"
+											styleClass="campoFormulario alerta" />
+											
+										<h:panelGroup id="pnlSelAssuntoNovaOcorrencia22">
+											<p:selectOneMenu id="cbTipoOcorrencia"
+												value="#{formBean.ocorrencia.tipoOcorrencia}" maxlength="20"
+												label="#{messageBean['ocorrencia.campo.tipoOcorrencia.label']}"
+												converter="#{enumConverter}" style="width:20em;"
+												valueChangeListener="#{formBean.changeTipoOcorrencia}"
+												disabled="#{not formBean.ocorrencia.editavel}">
+												<f:selectItem
+													itemLabel="#{messageBean['comum.combo.naoSelecionado']}"
+													itemValue="-1" />
+												<f:selectItems value="#{formBean.listaTipoOcorrencia}"
+													var="item" itemLabel="#{item.descricao}" />
+											</p:selectOneMenu>
+
+											<h:selectBooleanCheckbox
+												value="#{formBean.ocorrencia.indicadorTSER}"
+												title="#{messageBean['ocorrencia.campo.TSER.label']}"
+												style="margin-left:8px;"
+												rendered="#{!(formBean.ocorrencia.id eq null)}">
+											</h:selectBooleanCheckbox>
+											<h:outputText
+												styleClass="campoFormulario"
+												style="width:16em;"
+												value="#{messageBean['ocorrencia.campo.TSER.label']}"
+												rendered="#{!(formBean.ocorrencia.id eq null)}" />
+										</h:panelGroup>
+
+										<h:outputLabel for="txtAssunto"
+											value="#{messageBean['ocorrencia.campo.assunto.label']}"
+											styleClass="campoFormulario alerta" style="float: left;" />
+										<h:panelGroup id="pnlSelAssuntoNovaOcorrencia">
+											<p:autoComplete id="txtAssunto" size="50"
+												widgetVar="widgetVarAssunto"
+												value="#{formBean.ocorrencia.assunto}"
+												completeMethod="#{assuntoCacheBean.sugerirAssuntos}"
+												maxlength="40" effect="fade" converter="#{assuntoConverter}"
+												update="pnlSelAssuntoNovaOcorrencia" scrollHeight="300" />
+											<p:commandButton icon="ui-icon-search"
+												onclick="PF('pnlSelecaoAssunto').show();" type="button" />
+											<p:commandButton icon="ui-icon-plus" type="button"
+												onclick="PF('dlg3').show();"
+												title="#{messageBean['assunto.botao.novoAssunto']}" />
+										</h:panelGroup>
+									</h:panelGrid>
+								</div>
+							</h:panelGroup>
+							<h:outputLabel for="txtDescricaoOcorrencia"
+								value="#{messageBean['ocorrencia.campo.descricao.label']}"
+								style="vertical-align: top;" styleClass="campoFormulario alerta" />
+							<p:inputTextarea id="txtDescricaoOcorrencia"
+								value="#{formBean.ocorrencia.descricaoOcorrencia}"
+								maxlength="4000" style="width: 82em;" autoResize="false"
+								rows="5"
+								label="#{messageBean['ocorrencia.campo.descricao.label']}" />
+						</h:panelGrid>
+					</p:outputPanel>
+
+				</p:fieldset>
+				<p:fieldset
+					legend="#{messageBean['ocorrencia.subsecao.cidadao.label']}">
+					<p:panel id="fsCidadao" style="border: none">
+						<h:selectBooleanCheckbox
+							value="#{formBean.naoValidarDadosCidadao}" title="Creu"
+							disabled="#{formBean.desabilitaCampos}"
+							valueChangeListener="#{formBean.changeModalidadeOcorrencia}">
+							<f:ajax event="change" execute="@this" render="fsCidadao" />
+						</h:selectBooleanCheckbox>
+
+						<h:outputText styleClass="campoFormulario"
+							value="#{messageBean['ocorrencia.checkbox.cidadaoAnonimo']}" />
+
+						<h:panelGrid columns="1">
+							<h:panelGroup>
+								<div style="float: left;">
+
+									<h:panelGrid columns="2">
+										<h:outputLabel for="txtNomeCidadao"
+											value="#{messageBean['ocorrencia.campo.nomeCidadao.label']}"
+											disabled="#{formBean.dadosCidadaoObrigatorio}"
+											styleClass="campoFormulario alerta" />
+										<p:inputText id="txtNomeCidadao" size="45" maxlength="60"
+											styleClass="campoFormulario"
+											value="#{formBean.ocorrencia.nomeCidadao}"
+											disabled="#{formBean.dadosCidadaoObrigatorio}"
+											label="#{messageBean['ocorrencia.campo.nomeCidadao.label']}" />
+										<h:outputLabel for="txtNomeSocial"
+											value="#{messageBean['ocorrencia.campo.nomeSocial.label']}"
+											disabled="#{formBean.dadosCidadaoObrigatorio}"
+											styleClass="campoFormulario" />
+										<p:inputText id="txtNomeSocial" size="45" maxlength="60"
+											styleClass="campoFormulario"
+											value="#{formBean.ocorrencia.nomeSocial}"
+											disabled="#{formBean.dadosCidadaoObrigatorio}"
+											label="#{messageBean['ocorrencia.campo.nomeSocial.label']}" />
+										<h:outputLabel for="txtDataNascimentoCidadao"
+											value="#{messageBean['ocorrencia.campo.dataNascimentoCidadao.label']}"
+											styleClass="campoFormulario alerta"
+											rendered="#{formBean.ocorrenciaObrigaIdentificacao}" />
+										<h:outputLabel for="txtDataNascimentoCidadao"
+											value="#{messageBean['ocorrencia.campo.dataNascimentoCidadao.label']}"
+											styleClass="campoFormulario"
+											rendered="#{not formBean.ocorrenciaObrigaIdentificacao}" />
+										<h:panelGroup>
+											<p:calendar id="txtDataNascimentoCidadao" showOn="button"
+												size="30"
+												label="#{messageBean['ocorrencia.campo.dataNascimentoCidadao.label']}"
+												pattern="dd/MM/yyyy" mask="true" locale="pt"
+												disabled="#{formBean.dadosCidadaoObrigatorio}"
+												value="#{formBean.ocorrencia.dataNascimentoCidadao}"
+												onkeypress="return mascararData(event,document.getElementById('frmManterOcorrencia:txtDataNascimentoCidadaoInputDate'))" />
+										</h:panelGroup>
+										<h:outputLabel for="txtNomeMaeCidadao"
+											value="#{messageBean['ocorrencia.campo.nomeMaeCidadao.label']}"
+											styleClass="campoFormulario alerta"
+											rendered="#{formBean.ocorrenciaObrigaIdentificacao}" />
+										<h:outputLabel for="txtNomeMaeCidadao"
+											value="#{messageBean['ocorrencia.campo.nomeMaeCidadao.label']}"
+											styleClass="campoFormulario"
+											rendered="#{not formBean.ocorrenciaObrigaIdentificacao}" />
+										<p:inputText id="txtNomeMaeCidadao" size="45"
+											value="#{formBean.ocorrencia.nomeMaeCidadao}" maxlength="60"
+											disabled="#{formBean.dadosCidadaoObrigatorio}"
+											label="#{messageBean['ocorrencia.campo.nomeMaeCidadao.label']}" />
+									</h:panelGrid>
+								</div>
+
+								<div style="float: left; margin-left: 5em;">
+									<h:panelGrid columns="2">
+
+										<h:outputLabel for="cbSexo"
+											value="#{messageBean['ocorrencia.campo.sexo.label']}"
+											styleClass="campoFormulario" />
+										<p:selectOneMenu id="cbSexo"
+											value="#{formBean.ocorrencia.sexo}"
+											label="#{messageBean['ocorrencia.campo.sexo.label']}"
+											converter="#{enumConverter}"
+											disabled="#{formBean.dadosCidadaoObrigatorio}"
+											style="width: 12em;">
+											<f:selectItems value="#{formBean.listaSexo}" var="item"
+												itemLabel="#{item.descricao}" />
+										</p:selectOneMenu>
+
+										<h:outputLabel for="txtTituloEleitorCidadao"
+											value="#{messageBean['ocorrencia.campo.tituloEleitorCidadao.label']}"
+											styleClass="campoFormulario" />
+										<p:inputText id="txtTituloEleitorCidadao"
+											value="#{formBean.ocorrencia.tituloEleitorCidadao}"
+											maxlength="12" disabled="#{formBean.dadosCidadaoObrigatorio}"
+											label="#{messageBean['ocorrencia.campo.tituloEleitorCidadao.label']}"
+											styleClass="tituloEleitor">
+										</p:inputText>
+
+										<h:outputLabel for="cbEscolaridade"
+											value="#{messageBean['ocorrencia.campo.escolaridade.label']}"
+											styleClass="campoFormulario" />
+										<p:selectOneMenu id="cbEscolaridade"
+											value="#{formBean.ocorrencia.escolaridade}"
+											label="#{messageBean['ocorrencia.campo.escolaridade.label']}"
+											converter="#{enumConverter}"
+											disabled="#{formBean.dadosCidadaoObrigatorio}"
+											style="width:20em;">
+											<f:selectItems value="#{formBean.listaEscolaridade}"
+												var="item" itemLabel="#{item.descricao}" />
+										</p:selectOneMenu>
+									</h:panelGrid>
+								</div>
+							</h:panelGroup>
+						</h:panelGrid>
+
+						<div class="clear">&nbsp;</div>
+
+					</p:panel>
+				</p:fieldset>
+				<p:fieldset
+					legend="#{messageBean['ocorrencia.subsecao.contato.label']}">
+					<p:panel id="fsContato" style="border: none">
+
+						<div style="float: left;">
+							<h:panelGrid columns="2" styleClass="border: nome !important">
+								<h:outputLabel for="cbFormaContato"
+									value="#{messageBean['ocorrencia.campo.formaContato.label']}"
+									styleClass="campoFormulario alerta" />
+								<p:selectOneMenu id="cbFormaContato"
+									value="#{formBean.ocorrencia.formaContato}"
+									label="#{messageBean['ocorrencia.campo.formaContato.label']}"
+									converter="#{enumConverter}"
+									valueChangeListener="#{formBean.changeFormaContato}"
+									style="width:20em;">
+									<f:selectItem
+										itemLabel="#{messageBean['comum.combo.naoSelecionado']}"
+										itemValue="-1" />
+									<f:selectItems value="#{formBean.listaFormaContato}" var="item"
+										itemLabel="#{item.descricao}" />
+									<f:ajax event="change" execute="@this" render="fsContato" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="txtEmailCidadao"
+									value="#{messageBean['ocorrencia.campo.emailCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.emailObrigatorio}" />
+								<h:outputLabel for="txtEmailCidadao"
+									value="#{messageBean['ocorrencia.campo.emailCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.emailObrigatorio}" />
+								<p:inputText id="txtEmailCidadao" size="45"
+									value="#{formBean.ocorrencia.emailCidadao}" maxlength="50"
+									label="#{messageBean['ocorrencia.campo.emailCidadao.label']}" />
+
+
+								<h:outputLabel for="txtTelefoneCidadao"
+									value="#{messageBean['ocorrencia.campo.telefoneCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.telefoneObrigatorio}" />
+								<h:outputLabel for="txtTelefoneCidadao"
+									value="#{messageBean['ocorrencia.campo.telefoneCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.telefoneObrigatorio}" />
+								<h:panelGroup>
+									<p:inputText id="txtTelefoneCidadao"
+										value="#{formBean.ocorrencia.telefoneCidadao}" maxlength="16"
+										onkeypress="return mascararTelefone(event, this);"
+										label="#{messageBean['ocorrencia.campo.telefoneCidadao.label']}" />
+									<h:outputText
+										value="#{messageBean['comum.textoExplicativo.telefone']}"
+										style="margin-left: 0.5em; display: inline-block; font-weight: bold;" />
+								</h:panelGroup>
+
+								<h:outputLabel for="txtFaxCidadao"
+									value="#{messageBean['ocorrencia.campo.faxCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.faxObrigatorio}" />
+								<h:outputLabel for="txtFaxCidadao"
+									value="#{messageBean['ocorrencia.campo.faxCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.faxObrigatorio}" />
+								<h:panelGroup>
+									<p:inputText id="txtFaxCidadao"
+										value="#{formBean.ocorrencia.faxCidadao}" maxlength="16"
+										onkeypress="return mascararTelefone(event, this);"
+										label="#{messageBean['ocorrencia.campo.faxCidadao.label']}" />
+									<h:outputText
+										value="#{messageBean['comum.textoExplicativo.fax']}"
+										style="margin-left: 0.5em; display: inline-block; font-weight: bold;" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</div>
+
+						<div style="float: left; margin-left: 5em;">
+
+							<h:panelGrid columns="2">
+
+								<h:outputLabel for="txtEnderecoCidadao"
+									value="#{messageBean['ocorrencia.campo.enderecoCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.enderecoCidadaoObrigatorio}" />
+								<h:outputLabel for="txtEnderecoCidadao"
+									value="#{messageBean['ocorrencia.campo.enderecoCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.enderecoCidadaoObrigatorio}" />
+								<p:inputText id="txtEnderecoCidadao" size="50"
+									value="#{formBean.ocorrencia.enderecoCidadao}" maxlength="80"
+									label="#{messageBean['ocorrencia.campo.enderecoCidadao.label']}" />
+								<h:outputLabel for="txtCidadeEnderecoCidadao"
+									value="#{messageBean['ocorrencia.campo.cidadeEnderecoCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.cidadeEnderecoCidadaoObrigatorio}" />
+								<h:outputLabel for="txtCidadeEnderecoCidadao"
+									value="#{messageBean['ocorrencia.campo.cidadeEnderecoCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.cidadeEnderecoCidadaoObrigatorio}" />
+								<p:inputText id="txtCidadeEnderecoCidadao" size="50"
+									value="#{formBean.ocorrencia.cidadeEnderecoCidadao}"
+									maxlength="50"
+									label="#{messageBean['ocorrencia.campo.cidadeEnderecoCidadao.label']}" />
+								<h:outputLabel for="txtBairroCidadao"
+									value="#{messageBean['ocorrencia.campo.bairroCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.bairroCidadaoObrigatorio}" />
+								<h:outputLabel for="txtBairroCidadao"
+									value="#{messageBean['ocorrencia.campo.bairroCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.bairroCidadaoObrigatorio}" />
+								<p:inputText id="txtBairroCidadao" size="50"
+									value="#{formBean.ocorrencia.bairroCidadao}" maxlength="50"
+									label="#{messageBean['ocorrencia.campo.bairroCidadao.label']}" />
+								<h:outputLabel for="cbSiglaEstadoCidadao"
+									value="#{messageBean['ocorrencia.campo.siglaEstadoCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.siglaEstadoCidadaoObrigatorio}" />
+								<h:outputLabel for="cbSiglaEstadoCidadao"
+									value="#{messageBean['ocorrencia.campo.siglaEstadoCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.siglaEstadoCidadaoObrigatorio}" />
+								<p:selectOneMenu id="cbSiglaEstadoCidadao"
+									value="#{formBean.ocorrencia.siglaEstadoCidadao}"
+									label="#{messageBean['ocorrencia.campo.siglaEstadoCidadao.label']}"
+									converter="#{enumConverter}" style="width:12em;">
+									<f:selectItem
+										itemLabel="#{messageBean['comum.combo.naoSelecionado']}"
+										itemValue="-1" />
+									<f:selectItems value="#{formBean.listaSiglaEstadoCidadao}"
+										var="item" itemLabel="#{item.uf}" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="txtCepEnderecoCidadao"
+									value="#{messageBean['ocorrencia.campo.cepEnderecoCidadao.label']}"
+									styleClass="campoFormulario alerta"
+									rendered="#{formBean.cepEnderecoCidadaoObrigatorio}" />
+								<h:outputLabel for="txtCepEnderecoCidadao"
+									value="#{messageBean['ocorrencia.campo.cepEnderecoCidadao.label']}"
+									styleClass="campoFormulario"
+									rendered="#{not formBean.cepEnderecoCidadaoObrigatorio}" />
+								<p:inputText id="txtCepEnderecoCidadao"
+									value="#{formBean.ocorrencia.cepEnderecoCidadao}" maxlength="8"
+									onkeypress="return mascararCep(event, this);"
+									label="#{messageBean['ocorrencia.campo.cepEnderecoCidadao.label']}" />
+							</h:panelGrid>
+
+						</div>
+
+						<div class="clear">&nbsp;</div>
+
+					</p:panel>
+				</p:fieldset>
+				<h:outputText value="* #{messageBean['comum.campo.obrigatorio']}" />
+				<ui:insert name="botaoAcao" />
+			</h:panelGrid>
+		</p:panel>
+		<p:dialog id="pnlCadastroAssunto" widgetVar="dlg3" modal="true"
+			width="600" height="530">
+			<f:facet name="header">
+				<h:outputText value="#{messageBean['assunto.cadastro.titulo']}" />
+			</f:facet>
+			<ui:include src="includeInsercaoAssunto.xhtml" />
+		</p:dialog>
+
+		<p:dialog id="pnlSelecaoAssunto" widgetVar="pnlSelecaoAssunto"
+			modal="true" width="550" height="530">
+			<f:facet name="header">
+				<h:outputText
+					value="#{messageBean['ocorrencia.painel.selecaoAssunto.titulo']}" />
+			</f:facet>
+			<ui:param name="updateAssunto" value="widgetVarAssunto" />
+			<ui:include src="includeSelecaoAssunto.xhtml" />
+		</p:dialog>
+
+		<script>
+			document.body.style.minWidth = "1180px";
+		</script>
+	</ui:define>
+</ui:composition>
