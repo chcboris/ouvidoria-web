@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="../../template/Layout.xhtml">
+
+	<ui:define name="conteudo">
+
+		<p:accordionPanel>
+			<p:tab id="pnlFiltroOcorrencia" title="Filtros">
+				<p:panelGrid columns="4"
+					columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-2,ui-grid-col-3"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					style="border:0px none; background-color:transparent;">
+
+					<p:outputLabel for="txtIdOcorrencia"
+						value="Identificação da ocorrência" />
+					<p:inputText id="txtIdOcorrencia" />
+
+					<p:outputLabel value="Forma de recebimento"
+						for="cbFormaRecebimento" />
+					<p:selectOneMenu id="cbFormaRecebimento">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Option1" itemValue="Option1" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Nome" for="txtNome" />
+					<p:inputText id="txtNome" />
+
+					<p:outputLabel value="Tipo ocorrencia" for="cbTipoOcorrencia" />
+					<p:selectOneMenu id="cbTipoOcorrencia">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Option1" itemValue="Option1" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Título do Eleitor"
+						for="txtTituloEleitorCidadao" />
+					<p:inputText id="txtTituloEleitorCidadao" />
+
+					<p:outputLabel value="Status" for="cbStatusOcorrencia" />
+					<p:selectOneMenu id="cbStatusOcorrencia">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Option1" itemValue="Option1" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data inicial da ocorrência"
+						for="txtDataOcorrenciaInicio" />
+					<p:datePicker id="txtDataOcorrenciaInicio" />
+
+					<p:outputLabel value="Última alteração por" for="cbUltimaAlteracao" />
+					<p:selectOneMenu id="cbUltimaAlteracao">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Option1" itemValue="Option1" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data final da ocorrência"
+						for="txtDataOcorrenciaFim" />
+					<p:datePicker id="txtDataOcorrenciaFim" />
+
+					<p:outputLabel for="cbResp" value="Responsável" />
+					<p:selectOneMenu id="cbResp">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Option1" itemValue="Option1" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Assunto" for="txtAssunto" />
+					<p:autoComplete id="txtAssunto" />
+
+					<p:selectBooleanCheckbox itemLabel="Sem assunto" id="txtSemAssunto" />
+
+				</p:panelGrid>
+				<p:fieldset legend="Unidade" toggleable="true">
+
+					<p:outputLabel value="Sigla" for="unidadesSelecionada" />
+					<p:autoComplete id="unidadesSelecionada" />
+
+					<p:selectOneRadio id="redirecionado" layout="grid" columns="3">
+						<f:selectItem itemLabel="Somente Pedido de Informação"
+							itemValue="pedidoInformacao" />
+						<f:selectItem itemLabel="Somente Encaminhamento"
+							itemValue="encaminhamento" />
+						<f:selectItem itemLabel="Ambos" itemValue="Ambos" />
+					</p:selectOneRadio>
+
+				</p:fieldset>
+				<p:commandButton id="btnFiltrar" icon="fa fa-search" value="Filtrar" />
+				<p:commandButton icon="fa fa-eraser" value="Limpar" />
+			</p:tab>
+		</p:accordionPanel>
+
+		<p:dataTable var="customer"
+			rows="10" paginator="true" paginatorPosition="both"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} ocorrências"
+			rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+
+			<p:column style="width: 190px;" headerText="Status">
+				<h:outputText value="xxx" />
+			</p:column>
+
+			<p:column style="width: 80px;" headerText="Número">
+				<h:outputText value="00000" />
+			</p:column>
+
+			<p:column style="width: 80px;" headerText="Data">
+				<h:outputText value="00/00/0000" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<h:outputText value="cccc" />
+			</p:column>
+
+
+			<p:column headerText="Tipo">
+				<h:outputText value="yyyy" />
+			</p:column>
+
+			<p:column headerText="Forma Recebimento">
+				<h:outputText value="xxxx}" />
+			</p:column>
+
+			<p:column headerText="TSER" style="width:3%">
+				<p:graphicImage value="/img/check_gran.png"
+					alt="Tipo de ocorrência revisado." title="TSER" />
+			</p:column>
+
+			<p:column headerText="TRR" style="width:3%">
+				<p:graphicImage value="/img/check_gran.png" alt="Resposta revisada."
+					title="#{messageBean['ocorrencia.tabela.coluna.TRR.title']}" />
+			</p:column>
+
+			<p:column style="width: 135px;" headerText="Opções">
+				<h:outputText value="cccc" />
+			</p:column>
+
+			<f:facet name="paginatorBottomRight">
+				<p:commandButton type="button" icon="pi pi-cloud-upload" />
+			</f:facet>
+
+		</p:dataTable>
+
+		<!-- 						Ações -->
+		<!-- 						<p:column style="width: 135px;" exportable="false"> -->
+		<!-- 							<f:facet name="header"> -->
+		<!-- 								<h:outputText -->
+		<!-- 									value="#{messageBean['comum.tabela.coluna.opcoes']}" /> -->
+		<!-- 							</f:facet> -->
+
+		<!-- 							<h:link id="btnVisualizarOcorrenciaArquivada" -->
+		<!-- 								outcome="visualizacaoOcorrenciaArquivada.xhtml" -->
+		<!-- 								rendered="#{not ocorrencia.podeElaborarResposta}" -->
+		<!-- 								includeViewParams="true" styleClass="clicavel" -->
+		<!-- 								title="#{messageBean['ocorrencia.botao.visualizarOcorrenciaArquivada']}"> -->
+		<!-- 								<f:param name="id" value="#{ocorrencia.id}" /> -->
+		<!-- 								<div class="document" style="float: left;"></div> -->
+		<!-- 							</h:link> -->
+
+		<!-- 							<h:commandLink id="btnElaborar" action="elaborarRespostaTabs.xhtml" -->
+		<!-- 								rendered="#{ocorrencia.podeElaborarResposta}" styleClass="clicavel" -->
+		<!-- 								title="#{messageBean['ocorrencia.botao.elaborarResposta']}"> -->
+		<!-- 								<f:param name="id" value="#{ocorrencia.id}" /> -->
+		<!-- 								<div class="documentPencil" style="float: left;"></div> -->
+		<!-- 							</h:commandLink> -->
+
+		<!-- 							<p:outputPanel rendered="#{not ocorrencia.podeElaborarResposta}"> -->
+		<!-- 								<div class="documentPencilDisabled" style="float: left;" -->
+		<!-- 									title="#{messageBean['ocorrencia.botao.elaborarResposta']}"></div> -->
+		<!-- 							</p:outputPanel> -->
+
+		<!-- 							<h:link id="btnEditar" outcome="edicao.xhtml" -->
+		<!-- 								rendered="#{ocorrencia.editavel}" includeViewParams="true" -->
+		<!-- 								styleClass="clicavel" -->
+		<!-- 								title="#{messageBean['ocorrencia.botao.editar']}"> -->
+		<!-- 								<f:param name="id" value="#{ocorrencia.id}" /> -->
+		<!-- 								<div class="pencilEnabled" style="float: left;"></div> -->
+		<!-- 							</h:link> -->
+
+		<!-- 							<p:outputPanel rendered="#{not ocorrencia.editavel}"> -->
+		<!-- 								<div class="pencilDisabled" style="float: left;" -->
+		<!-- 									title="#{messageBean['ocorrencia.botao.editar']}"></div> -->
+		<!-- 							</p:outputPanel> -->
+
+		<!-- 							<p:commandLink styleClass="clicavel" -->
+		<!-- 								rendered="#{ocorrencia.excluivel}" -->
+		<!-- 								oncomplete="PF('pnlConfirmarRemocao').show()"> -->
+		<!-- 								<f:setPropertyActionListener -->
+		<!-- 									target="#{visualizacaoOcorrenciaBean.ocorrenciaSelecionada}" -->
+		<!-- 									value="#{ocorrencia}" /> -->
+		<!-- 								<div class="deleteIcon" style="float: left;"></div> -->
+		<!-- 							</p:commandLink> -->
+
+		<!-- 							<p:outputPanel rendered="#{not ocorrencia.excluivel}"> -->
+		<!-- 								<div class="deleteDisabledIcon" style="float: left;" -->
+		<!-- 									title="#{messageBean['ocorrencia.botao.excluir.disabled']}"></div> -->
+		<!-- 							</p:outputPanel> -->
+
+		<!-- 						</p:column> -->
+
+	</ui:define>
+</ui:composition>

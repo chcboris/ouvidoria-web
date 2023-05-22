@@ -15,9 +15,9 @@
 			title="Ouvidoria" />
 
 		<div>
-			<h:outputText value="STI" styleClass="textoCabecalhoSistema" />
-			<h:outputText value="CSCOR" styleClass="textoCabecalhoSistema" />
-			<h:outputText value="SEDSIS" styleClass="textoCabecalhoSistema" />
+			<h:outputText value="STI"  />
+			<h:outputText value="CSCOR"  />
+			<h:outputText value="SEDSIS"  />
 		</div>
 		cabeçalho
 	</div>
@@ -26,9 +26,9 @@
 <h:body>
 	<p:menubar>
 		<p:submenu label="Ocorrência" >
-			<p:menuitem value="Cadastrar"  />
+			<p:menuitem value="Cadastrar"  outcome="/pages/ocorrencia/cadastrar"/>
 			<p:submenu label="Visualizar" >
-				<p:menuitem value="Ocorrências" />
+				<p:menuitem value="Ocorrências" outcome="/pages/ocorrencia/visualizacao" />
 				<p:menuitem value="Recebidas Internet"
 					 />
 			</p:submenu>

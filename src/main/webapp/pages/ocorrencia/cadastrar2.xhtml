@@ -8,8 +8,9 @@
 
 	<ui:define name="conteudo">
 		<p:panel id="pnlManterOcorrencia" header="Cadastro">
-			<p:fieldset legend="Dados da ocorrência">
-				<p:panelGrid columns="3"
+ <p:accordionPanel>
+            <p:tab title="Dados da ocorrência">
+			<p:panelGrid columns="3"
 					columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-3"
 					layout="grid" styleClass="ui-panelgrid-blank  ui-fluid"
 					style="border:0px none; background-color:transparent;">
@@ -59,10 +60,11 @@
 							style="width: 68em;" autoResize="false" rows="5" label="teste" />
 					</h:panelGroup>
 				</p:panelGrid>
-			</p:fieldset>
+            </p:tab>
+</p:accordionPanel>
 
-			<p:fieldset legend="Dados do Cidadão">
-
+<p:accordionPanel>
+            <p:tab title="Dados do Cidadão">
 				<p:panelGrid columns="3"
 					columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3"
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
@@ -133,10 +135,11 @@
 						</p:column>
 					</p:row>
 				</p:panelGrid>
-			</p:fieldset>
+			</p:tab>
+</p:accordionPanel>
 
-			<p:fieldset legend="Contatos do Cidadão">
-
+<p:accordionPanel>	
+            <p:tab title="Contatos do Cidadão">
 				<p:panelGrid columns="3"
 					columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
@@ -188,7 +191,8 @@
 						<p:inputText id="txtCepEnderecoCidadao" />
 					</h:panelGroup>
 				</p:panelGrid>
-			</p:fieldset>
+</p:tab>
+</p:accordionPanel>
 			<p:commandButton id="btnCadastrarOcorrencia" value="cadastrar">
 			</p:commandButton>
 		</p:panel>
