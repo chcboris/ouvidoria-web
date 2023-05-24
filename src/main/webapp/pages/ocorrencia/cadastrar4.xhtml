@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="../../template/Layout.xhtml">
+
+
+
+	<ui:define name="conteudo">
+
+		<style>
+.ui-g div {
+	background-color: #ededed;
+	text-align: center;
+	border: 1px solid #fafafa;
+}
+
+</style>
+		<h:form>
+			<p:messages id="msgs" />
+			<p:panel id="pnlManterOcorrencia" header="Cadastro">
+
+				<p:accordionPanel>
+					<p:tab title="Dados da ocorrência">
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-6 ui-lg-4">
+
+								<div class="ui-g">
+									<div class="ui-g-12 ui-md-6 ui-lg-6" style="width: 40%; text-align: left;">
+										<h:outputLabel for="txtDataOcorrencia" value="Data" />
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6">
+										<p:datePicker id="txtDataOcorrencia" />
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6" style="width: 40%; text-align: left;">
+										<h:outputLabel for="cbFormaRecebimento"
+											value="Forma de recebimento"   />
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6" >
+										<p:selectOneMenu id="cbFormaRecebimento">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItem itemLabel="Option1" itemValue="Option1" />
+										</p:selectOneMenu>
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6" style="width: 40%; text-align: left;">
+										<p:outputLabel for="txtLocalAtendimento"
+											value="Local de atendimento" />
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6">
+										<p:inputText id="txtLocalAtendimento" maxlength="80"
+											required="true" label="Local"
+											requiredMessage="valor obrigatorio" />
+									</div>
+								</div>
+							</div>
+
+							<div class="ui-g-12 ui-md-6 ui-lg-4">
+								<div class="ui-g">
+									<div class="ui-g-12 ui-md-6 ui-lg-6">
+										<h:outputLabel for="cbTipoOcorrencia" value="Tipo" />
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6">
+										<p:selectOneMenu id="cbTipoOcorrencia">
+											<f:selectItem itemLabel="Select One" itemValue="" />
+											<f:selectItem itemLabel="Option1" itemValue="Option1" />
+										</p:selectOneMenu>
+										<p:selectBooleanCheckbox itemLabel="TSER" />
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6">
+										<h:outputLabel for="txtAssunto" value="Assunto" />
+									</div>
+									<div class="ui-g-12 ui-md-6 ui-lg-6">
+										<p:autoComplete id="txtAssunto" />
+									</div>
+
+								</div>
+							</div>
+
+
+						</div>
+
+						<div class="ui-g">
+						<div class="ui-g-12 ui-md-6 ui-lg-8">
+
+								<div class="ui-g">
+							<div class="ui-g-12 ui-md-6 ui-lg-2" style="width: 20%; text-align: left;">
+								<h:outputLabel for="txtDescricaoOcorrenciaw" value="Descrição" />
+							</div>
+							<div class="ui-g-12 ui-md-6 ui-lg-8">
+								<p:inputTextarea id="txtDescricaoOcorrencia" maxlength="4000"
+									autoResize="false" rows="5" label="teste" style="width: 100%;" />
+							</div>
+						</div>
+						</div>
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+					</p:tab>
+				</p:accordionPanel>
+
+				<p:commandButton id="btnCadastrarOcorrencia" value="cadastrar"
+					update="@form" />
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+

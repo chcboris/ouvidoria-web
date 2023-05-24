@@ -4,71 +4,89 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
 <h:head>
 	<meta charset="UTF-8" />
 	<title>Ouvidoria Administrativo TRE-RJ</title>
 
-	<div style='background-color: gray'>
+	<p:panel styleClass="cabecalhoSistema">
 
 		<p:graphicImage value="/img/logo.png" alt="falta alt"
 			title="Ouvidoria" />
 
-		<div>
-			<h:outputText value="STI"  />
-			<h:outputText value="CSCOR"  />
-			<h:outputText value="SEDSIS"  />
+		<div class="cabecalhoDescricao">
+			<h:outputText value="STI" styleClass="textoCabecalhoSistema" />
+			<h:outputText value="CSCOR" styleClass="textoCabecalhoSistema" />
+			<h:outputText value="SEDSIS" styleClass="textoCabecalhoSistema" />
 		</div>
-		cabeçalho
-	</div>
+</p:panel>
+
+	<style>
+.cabecalhoSistema {
+	background-color: #f7f7f7;
+}
+
+.cabecalhoDescricao {
+	float: right;
+}
+
+.tamanhoImg {
+	width: 220px;
+}
+
+.textoCabecalhoSistema {
+	display: block;
+	font-weight: bold;
+	font-size: 13px;
+	text-align: right;
+	color: #999;
+}
+</style>
 </h:head>
 
 <h:body>
 	<p:menubar>
-		<p:submenu label="Ocorrência" >
-			<p:menuitem value="Cadastrar"  outcome="/pages/ocorrencia/cadastrar"/>
-			<p:submenu label="Visualizar" >
-				<p:menuitem value="Ocorrências" outcome="/pages/ocorrencia/visualizacao" />
-				<p:menuitem value="Recebidas Internet"
-					 />
+		<p:submenu label="Ocorrência">
+			<p:menuitem value="Cadastrar" outcome="/pages/ocorrencia/cadastrar" />
+			<p:submenu label="Visualizar">
+				<p:menuitem value="Ocorrências"
+					outcome="/pages/ocorrencia/visualizacao" />
+				<p:menuitem value="Recebidas Internet" />
 			</p:submenu>
-			<p:menuitem value="Prazo"  />
+			<p:menuitem value="Prazo" />
 		</p:submenu>
 
-		<p:submenu label="Manutenção" >
-			<p:menuitem value="Assuntos"  />
-			<p:menuitem value="Unidades"  />
-			<p:menuitem value="Decisões Padrão"  />
-			<p:menuitem value="Período Extras"  />
-			<p:menuitem value="Informações"  />
+		<p:submenu label="Manutenção">
+			<p:menuitem value="Assuntos" />
+			<p:menuitem value="Unidades" />
+			<p:menuitem value="Decisões Padrão" />
+			<p:menuitem value="Período Extras" />
+			<p:menuitem value="Informações" />
 		</p:submenu>
 
-		<p:submenu label="Consultas" >
+		<p:submenu label="Consultas">
 			<p:submenu label="Ocorrências">
-				<p:menuitem value="Não tratadas"/>
-				<p:menuitem value="Não respondidas"/>
+				<p:menuitem value="Não tratadas" />
+				<p:menuitem value="Não respondidas" />
 			</p:submenu>
-			<p:menuitem value="Pesq. de Satisfação"/>
-			<p:menuitem value="Registro de Atividades"/>
-			<p:menuitem value="Locais de Atendimento"/>
+			<p:menuitem value="Pesq. de Satisfação" />
+			<p:menuitem value="Registro de Atividades" />
+			<p:menuitem value="Locais de Atendimento" />
 		</p:submenu>
 
 
 		<p:submenu label="Consultas Estatísticas">
-			<p:menuitem value="Assuntos"/>
-			<p:menuitem value="Escolaridade"/>
+			<p:menuitem value="Assuntos" />
+			<p:menuitem value="Escolaridade" />
 		</p:submenu>
 
 		<f:facet name="options">
-			<div class="ui-input-icon-left mr-2">				
+			<div class="ui-input-icon-left mr-2">
 				<h:outputText value="xxxxxx  " />
 			</div>
 			<p:button value="Logout" icon="pi pi-fw pi-sign-out"
-				styleClass="ui-button-info" />			
+				styleClass="ui-button-info" />
 		</f:facet>
 	</p:menubar>
-
-	<div style='background-color: red'>mensagem</div>
 
 	<div id="conteudo">
 		<ui:insert name="conteudo" />

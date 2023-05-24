@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="../../template/Layout.xhtml">
+
+	<ui:define name="conteudo">
+		<p:panel id="pnlManterOcorrencia" header="Cadastro">
+ <p:accordionPanel>
+            <p:tab title="Dados da ocorrência">
+			<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-3"
+					layout="grid" styleClass="ui-panelgrid-blank  ui-fluid"
+					style="border:0px none; background-color:transparent;">
+
+					<p:row>
+						<h:panelGroup>
+							<h:outputLabel for="txtDataOcorrencia" value="Data" />
+							<p:datePicker id="txtDataOcorrencia" />
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<h:outputLabel for="cbFormaRecebimento"
+								value="Forma de recebimento" />
+							<p:selectOneMenu id="cbFormaRecebimento">
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItem itemLabel="Option1" itemValue="Option1" />
+							</p:selectOneMenu>
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<h:outputLabel for="txtLocalAtendimento"
+								value="Local de atendimento" />
+							<p:inputText id="txtLocalAtendimento" size="30" maxlength="80" />
+						</h:panelGroup>
+					</p:row>
+					<p:row>
+						<h:panelGroup>
+							<h:outputLabel for="cbTipoOcorrencia" value="Tipo" />
+							<p:selectOneMenu id="cbTipoOcorrencia">
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItem itemLabel="Option1" itemValue="Option1" />
+							</p:selectOneMenu>
+
+							<p:selectBooleanCheckbox itemLabel="TSER" />
+						</h:panelGroup>
+
+						<h:panelGroup>
+							<h:outputLabel for="txtAssunto" value="Assunto" />
+							<p:autoComplete id="txtAssunto" size="30" />
+						</h:panelGroup>
+
+					</p:row>
+
+					<h:panelGroup>
+						<h:outputLabel for="txtDescricaoOcorrenciaw" value="Descrição" />
+						<p:inputTextarea id="txtDescricaoOcorrencia" maxlength="4000"
+							style="width: 68em;" autoResize="false" rows="5" label="teste" />
+					</h:panelGroup>
+				</p:panelGrid>
+            </p:tab>
+</p:accordionPanel>
+
+<p:accordionPanel>
+            <p:tab title="Dados do Cidadão">
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					style="border:0px none; background-color:transparent;">
+
+					<p:selectBooleanCheckbox itemLabel="Não desejo me identificar" />
+
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<h:panelGroup>
+								<h:outputLabel for="txtNomeCidadao" value="Nome" />
+								<p:inputText id="txtNomeCidadao" />
+							</h:panelGroup>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<h:panelGroup>
+								<h:outputLabel for="txtNomeSocial" value="Nome Social" />
+								<p:inputText id="txtNomeSocial" />
+							</h:panelGroup>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<h:panelGroup>
+								<h:outputLabel for="txtNomeMaeCidadao" value="Nome da mãe" />
+								<p:inputText id="txtNomeMaeCidadao" />
+							</h:panelGroup>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="ui-grid-col-1">
+							<h:panelGroup>
+								<h:outputLabel for="txtDataNascimentoCidadao" value="Nascimento" />
+								<p:datePicker id="txtDataNascimentoCidadao" />
+							</h:panelGroup>
+						</p:column>
+
+						<p:column styleClass="ui-grid-col-1">
+							<h:panelGroup>
+								<h:outputLabel for="txtTituloEleitorCidadao"
+									value="Título de Eleitor" />
+								<p:inputText id="txtTituloEleitorCidadao" />
+							</h:panelGroup>
+						</p:column>
+
+						<p:column styleClass="ui-grid-col-2">
+							<h:panelGroup>
+								<h:outputLabel for="cbSexo" value="Sexo" />
+								<p:selectOneMenu id="cbSexo">
+									<f:selectItem itemLabel="Select One" itemValue="" />
+									<f:selectItem itemLabel="Option1" itemValue="Option1" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+						</p:column>
+
+						<p:column styleClass="ui-grid-col-2">
+							<h:panelGroup>
+								<h:outputLabel for="cbEscolaridade" value="Escolaridade" />
+								<p:selectOneMenu id="cbEscolaridade">
+									<f:selectItem itemLabel="Select One" itemValue="" />
+									<f:selectItem itemLabel="Option1" itemValue="Option1" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:tab>
+</p:accordionPanel>
+
+<p:accordionPanel>	
+            <p:tab title="Contatos do Cidadão">
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					style="border:0px none; background-color:transparent;">
+
+					<h:panelGroup>
+						<h:outputLabel for="cbFormaContato" value="Sexo" />
+						<p:selectOneMenu id="cbFormaContato">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItem itemLabel="Option1" itemValue="Option1" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputLabel for="txtEmailCidadao" value="E-mail" />
+						<p:inputText id="txtEmailCidadao" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel for="txtTelefoneCidadao" value="Telefone" />
+
+						<p:inputText id="txtTelefoneCidadao" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputLabel for="txtFaxCidadao" value="Fax" />
+						<p:inputText id="txtFaxCidadao" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel for="txtEnderecoCidadao" value="Endereço" />
+						<p:inputText id="txtEnderecoCidadao" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel for="txtCidadeEnderecoCidadao" value="Cidade" />
+						<p:inputText id="txtCidadeEnderecoCidadao" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel for="txtBairroCidadao" value="Bairro" />
+						<p:inputText id="txtBairroCidadao" maxlength="50" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel for="cbSiglaEstadoCidadao" value="Estado" />
+						<p:selectOneMenu id="cbSiglaEstadoCidadao">
+							<f:selectItem itemLabel="Select One" itemValue="" />
+							<f:selectItem itemLabel="Option1" itemValue="Option1" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel for="txtCepEnderecoCidadao" value="CEP" />
+						<p:inputText id="txtCepEnderecoCidadao" />
+					</h:panelGroup>
+				</p:panelGrid>
+</p:tab>
+</p:accordionPanel>
+
+<div class="card">
+    <h:form>
+        <p:messages id="msgs"/>
+
+        <h:panelGrid columns="3" cellpadding="7" styleClass="mb-3">
+            <p:outputLabel for="firstname" value="Firstname:"/>
+            <p:inputText id="firstname" required="true" label="Firstname">
+                <f:validateLength minimum="2"/>
+            </p:inputText>
+            <p:message for="firstname" display="icon"/>
+
+            <p:outputLabel for="lastname" value="Lastname:"/>
+            <p:inputText id="lastname" label="Lastname" required="true">
+                <f:validateLength minimum="2"/>
+                <p:ajax update="msgLastname" event="keyup"/>
+            </p:inputText>
+            <p:message for="lastname" id="msgLastname" display="icon"/>
+
+        </h:panelGrid>
+
+        <p:commandButton value="Save" update="@form" icon="pi pi-check"/>
+    </h:form>
+</div>
+
+			<p:commandButton id="btnCadastrarOcorrencia" value="cadastrar">
+			</p:commandButton>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
+
+
